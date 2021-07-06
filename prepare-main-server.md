@@ -1,0 +1,76 @@
+# Install bear metal server
+
+Used version Ubuntu 20.04.2 server 64bits
+
+
+## Installing vagrant
+
+```bash
+sudo apt update
+sudo apt install virtualbox -y
+```
+
+
+```bash
+wget https://releases.hashicorp.com/vagrant/2.2.16/vagrant_2.2.16_linux_amd64.zip
+apt install zip unzip
+unzip vagrant_2.2.16_linux_amd64.zip
+```
+
+
+```bash
+curl -O https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
+
+sudo apt install ./vagrant_2.2.9_x86_64.deb
+```
+
+## Init first vagrant project
+
+Wanted base here is Ubuntu 20.04 LTS
+
+```bash
+mkdir vagrant-test-project
+cd vagrant-test-project
+vagrant init ubuntu/focal64
+```
+
+Manually create a Vagrantfile
+
+```ruby
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+end
+```
+
+### Start vagrant machine
+
+```bash
+vagrant up
+```
+
+### Stop vagrant machine
+
+```bash
+vagrant halt
+```
+
+### Clean vagrant env
+
+```bash
+vagrant destroy
+```
+
+### Login vagrant machine (using vagrant host)
+
+vagrant ssh
+
+### Login vagrant machine using ssh
+
+ssh $(vagrant ssh-config | awk 'NR>1 {print " -o "$1"="$2}') localhost
+
+or
+
+ssh -i /path/to/vagrant/identity_file -p 2222 vagrant@localhost
+
+
+
