@@ -1,0 +1,3 @@
+privates/*
+!privates/*.sh
+.vagrant/*
