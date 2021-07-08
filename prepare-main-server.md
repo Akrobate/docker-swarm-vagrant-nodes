@@ -62,15 +62,19 @@ vagrant destroy
 
 ### Login vagrant machine (using vagrant host)
 
+```bash
 vagrant ssh
+```
 
 ### Login vagrant machine using ssh
 
+```bash
 ssh $(vagrant ssh-config | awk 'NR>1 {print " -o "$1"="$2}') localhost
-
+```
 or
 
+```bash
 ssh -i /path/to/vagrant/identity_file -p 2222 vagrant@localhost
-
+```
 
 
