@@ -1,0 +1,25 @@
+# https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-fr
+
+---
+- name: Playbook
+  hosts: all
+  vars_prompt:
+
+    - name: token
+      prompt: Join token?
+      private: no
+
+    - name: address
+      prompt: Master node address?
+      private: no
+
+  tasks:
+
+  - debug: msg='{{ inventory_hostname }}'
+
+  - name: Add worker node
+    docker_swarm:
+      state: join
+      join_token: '{{ token }}'
+      advertise_addr: '{{ inventory_hostname }}'
+      remote_addrs: [ '{{ address }}' ]
