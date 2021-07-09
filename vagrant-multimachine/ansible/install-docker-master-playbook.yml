@@ -1,0 +1,15 @@
+# https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-fr
+
+---
+- name: Configure master docker swarm node
+  hosts: master
+
+  tasks:
+
+  - name: Init a new swarm with default parameters
+    docker_swarm:
+      advertise_addr: '{{ inventory_hostname }}'
+      state: present
+    register: swarm_info  
+
+  - debug: msg='{{ swarm_info.swarm_facts.JoinTokens.Worker }}'
