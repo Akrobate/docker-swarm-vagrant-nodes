@@ -36,3 +36,9 @@ ansible all -i ./ansible/hosts -m ping
 ```bash
 ansible all -i ./hosts -a "/bin/echo hello"
 ```
+
+## Executing a playbook
+
+```bash
+ansible-playbook -i ./hosts playbookname.yml
+```
