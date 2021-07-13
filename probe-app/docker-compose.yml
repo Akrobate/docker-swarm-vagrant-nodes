@@ -1,0 +1,7 @@
+version: '2'
+
+services:
+    probe-app-1:
+        build: .
+        environment:
+            PROBE_APP: 1
