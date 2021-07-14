@@ -1,0 +1,20 @@
+version: '3'
+
+# docker service create \
+#   --name=viz \
+#   --publish=8080:8080 \
+#   --constraint=node.role==manager \
+#   --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+#   dockersamples/visualizer
+
+services:
+    viz:
+        image: dockersamples/visualizer
+        ports:
+            - 8080:8080
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        deploy:
+            placement:
+                constraints:
+                    - "node.role==manager"

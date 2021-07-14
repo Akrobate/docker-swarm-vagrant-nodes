@@ -1,0 +1,18 @@
+version: '3'
+
+# docker service create --name registry --publish=5000:5000 \
+#  --constraint=node.role==manager \
+#  -e REGISTRY_HTTP_ADDR=0.0.0.0:5000 \
+#  registry:2
+
+services:
+    registry:
+        image: registry:2
+        ports:
+            - 5000:5000
+        environment:
+            REGISTRY_HTTP_ADDR: 0.0.0.0:5000
+        deploy:
+            placement:
+                constraints:
+                    - "node.role==manager"
