@@ -1,7 +1,42 @@
-version: '2'
+version: '3'
 
 services:
+
     probe-app-1:
+        image: 192.168.1.200:5000/probe-app
         build: .
+        ports:
+            - 3000:3000
         environment:
-            PROBE_APP: 1
+            PROBE_APP: probe-app-1
+        deploy:
+            mode: replicated
+            replicas: 3
+            placement:
+                max_replicas_per_node: 1
+                constraints:
+                    - "node.role==worker"
+
+    probe-app-2:
+        image: 192.168.1.200:5000/probe-app
+        build: .
+        ports:
+            - 3001:3000
+        environment:
+            PROBE_APP: probe-app-2
+        deploy:
+            mode: replicated
+            replicas: 2
+            placement:
+                constraints:
+                    - "node.role==worker"
+
+    probe-app-3:
+        image: 192.168.1.200:5000/probe-app
+        build: .
+        ports:
+            - 3002:3000
+        environment:
+            PROBE_APP: probe-app-3
+        deploy:
+            mode: global
