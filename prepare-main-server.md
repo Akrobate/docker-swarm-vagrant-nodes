@@ -42,6 +42,26 @@ Vagrant.configure("2") do |config|
 end
 ```
 
+Advanced Vagrant file
+
+```ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+
+  config.vm.network "public_network", ip: "192.168.1.200"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+  end
+
+  config.vm.provision "file", source: "./privates/rsa_key.pub", destination: "$HOME/.ssh/"
+  config.vm.provision :shell, path: "provisioning.sh"
+
+end
+```
+
 ### Start vagrant machine
 
 ```bash
