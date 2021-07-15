@@ -1,8 +1,0 @@
-[testvmmachine]
-192.168.1.200
-
-
-[testvmmachine:vars]
-ansible_ssh_private_key_file=../privates/rsa_key
-ansible_ssh_extra_args= -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null"
-ansible_user=vagrant
