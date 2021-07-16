@@ -7,12 +7,10 @@
 
   tasks:
 
-  - name: Setting docker-compose url
+  - name: Preparing vars for docker-compose download url
     set_fact:
       uname_s: "{{ lookup('pipe', 'uname -s') }}"
       uname_m: "{{ lookup('pipe', 'uname -m') }}"
-  
-  - debug: msg='uname_s {{ uname_s }} uname_m {{ uname_m }} '
 
   - name: Download docker-compose to bin folder
     get_url:

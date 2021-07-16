@@ -1,0 +1,25 @@
+
+# https://docs.docker.com/registry/insecure/
+---
+- name: Configure master docker swarm node
+  hosts: all
+  become: yes
+
+  vars_prompt:
+    - name: registry_adress
+      prompt: "Private registry address ex: 192.168.1.200:5000"
+      private: no
+
+  tasks:
+  - name: Creating a file /etc/docker/daemon.json
+    copy:
+      dest: "/etc/docker/daemon.json"
+      content: |
+        {
+          "insecure-registries" : ["{{ registry_adress }}"]
+        }
+
+  - name: Restart service docker
+    ansible.builtin.service:
+      name: docker
+      state: restarted
