@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
         master.vm.provider "virtualbox" do |vb|
             vb.memory = "1024"
         end
-        master.vm.provision "file", source: "../privates/rsa_key.pub", destination: "$HOME/.ssh/"
+        master.vm.provision "file", source: "./privates/rsa_key.pub", destination: "$HOME/.ssh/"
         # master.vm.provision :shell, path: "provisioning.sh"
         master.vm.provision "shell",
             inline: "cat /home/vagrant/.ssh/rsa_key.pub >> /home/vagrant/.ssh/authorized_keys"
@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
         worker1.vm.provider "virtualbox" do |vb|
             vb.memory = "1024"
         end
-        worker1.vm.provision "file", source: "../privates/rsa_key.pub", destination: "$HOME/.ssh/"
+        worker1.vm.provision "file", source: "./privates/rsa_key.pub", destination: "$HOME/.ssh/"
         # worker1.vm.provision :shell, path: "provisioning.sh"
         worker1.vm.provision "shell",
             inline: "cat /home/vagrant/.ssh/rsa_key.pub >> /home/vagrant/.ssh/authorized_keys"
@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
         worker2.vm.provider "virtualbox" do |vb|
             vb.memory = "1024"
         end
-        worker2.vm.provision "file", source: "../privates/rsa_key.pub", destination: "$HOME/.ssh/"
+        worker2.vm.provision "file", source: "./privates/rsa_key.pub", destination: "$HOME/.ssh/"
         # worker2.vm.provision :shell, path: "provisioning.sh"
         worker2.vm.provision "shell",
             inline: "cat /home/vagrant/.ssh/rsa_key.pub >> /home/vagrant/.ssh/authorized_keys"
@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
         worker3.vm.provider "virtualbox" do |vb|
             vb.memory = "1024"
         end
-        worker3.vm.provision "file", source: "../privates/rsa_key.pub", destination: "$HOME/.ssh/"
+        worker3.vm.provision "file", source: "./privates/rsa_key.pub", destination: "$HOME/.ssh/"
         # worker3.vm.provision :shell, path: "provisioning.sh"
         worker3.vm.provision "shell",
             inline: "cat /home/vagrant/.ssh/rsa_key.pub >> /home/vagrant/.ssh/authorized_keys"
