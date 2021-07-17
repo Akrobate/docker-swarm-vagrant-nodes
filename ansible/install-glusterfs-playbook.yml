@@ -1,0 +1,47 @@
+
+---
+- name: Playbook
+  hosts: vagrantmmachine
+  become: yes
+  tasks:
+
+  # https://docs.ansible.com/ansible/2.9/modules/apt_module.html#apt-module
+  - name: Update server
+    apt:
+      update_cache: yes
+
+  # https://docs.ansible.com/ansible/2.9/modules/apt_module.html#apt-module
+  - name: Install dependecies for docker
+    apt:
+      pkg:
+      - software-properties-common
+      state: present
+
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
+  - name: Add ppa:gluster from PPA and install its signing key on Ubuntu target
+    ansible.builtin.apt_repository:
+      repo: ppa:gluster/glusterfs-3.12
+      state: present
+
+  # https://docs.ansible.com/ansible/2.9/modules/apt_module.html#apt-module
+  - name: Update server
+    apt:
+      update_cache: yes
+
+  - name: Install dependecies for docker
+    apt:
+      pkg:
+      - glusterfs-server
+      state: present
+
+  - name: Enable glusterd
+    ansible.builtin.systemd:
+      name: glusterd
+      state: started
+      enabled: yes
+
+  - name: Enable service glusterd and ensure it is not masked
+    ansible.builtin.systemd:
+      name: glusterd
+      enabled: yes
+      masked: no
