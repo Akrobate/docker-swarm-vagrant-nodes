@@ -33,6 +33,19 @@ docker stack services stack_name_to_preview
 # bdep0kiy0htc   test-app_probe-app-3   global       4/4        192.168.1.200:5000/probe-app:latest   *:3002->3000/tcp
 ```
 
+## Node labels for contraints
+
+```bash
+docker node update --label-add VolumeNode=true node_name
+```
+
+node.labels.VolumeNode == true
+
+
+```bash
+docker node update --label-rm VolumeNode node_name
+```
+
 
 ## Scale a service
 
