@@ -1,7 +1,7 @@
 
 ---
 - name: Playbook
-  hosts: vagrantmmachine
+  hosts: glusterfs
   become: yes
   tasks:
 
@@ -11,16 +11,17 @@
       update_cache: yes
 
   # https://docs.ansible.com/ansible/2.9/modules/apt_module.html#apt-module
-  - name: Install dependecies for docker
+  - name: Install dependecies for glusterfs
     apt:
       pkg:
       - software-properties-common
       state: present
 
   # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
+  # sudo add-apt-repository ppa:gluster/glusterfs-3.12
   - name: Add ppa:gluster from PPA and install its signing key on Ubuntu target
     ansible.builtin.apt_repository:
-      repo: ppa:gluster/glusterfs-3.12
+      repo: ppa:gluster/glusterfs-9
       state: present
 
   # https://docs.ansible.com/ansible/2.9/modules/apt_module.html#apt-module
@@ -28,7 +29,7 @@
     apt:
       update_cache: yes
 
-  - name: Install dependecies for docker
+  - name: Install package glusterfs
     apt:
       pkg:
       - glusterfs-server
