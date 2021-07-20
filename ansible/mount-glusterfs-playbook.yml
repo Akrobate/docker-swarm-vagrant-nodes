@@ -1,0 +1,25 @@
+
+
+---
+- name: Playbook
+  hosts: glusterfs
+  become: yes
+
+  vars_prompt:
+
+  - name: volume_name
+    prompt: Volume to mount? example volume_test
+    private: no
+
+  - name: gluster_mount_dir
+    prompt: Mount point dir? example /mnt/data
+    private: no
+
+  tasks:
+  - name: Ensure Gluster volume is mounted.
+    mount:
+      name: "{{ gluster_mount_dir }}"
+      src: "localhost:/{{ volume_name }}"
+      fstype: glusterfs
+      opts: "defaults,_netdev"
+      state: mounted
