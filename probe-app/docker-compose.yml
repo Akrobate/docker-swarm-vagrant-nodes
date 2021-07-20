@@ -26,10 +26,11 @@ services:
             PROBE_APP: probe-app-2
         deploy:
             mode: replicated
-            replicas: 2
+            replicas: 1
             placement:
                 constraints:
                     - "node.role==worker"
+#                    - "node.labels.Volume == true"
 
     probe-app-3:
         image: 192.168.1.200:5000/probe-app
