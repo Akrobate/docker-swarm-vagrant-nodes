@@ -1,13 +1,19 @@
 'use strict';
 
+const fsPromises = require('fs').promises;
+
 const port = process.env.PROBE_APP_PORT ? process.env.PROBE_APP_PORT : 3000;
 
 require('express')()
     .use(
         (request, response) => {
+
+            const files_in_volume = await fsPromises.readdir('./data');
+
             const result = {
                 url: request.originalUrl,
                 host: request.headers.host,
+                data: files_in_volume,
                 env_vars: formatEnvVars(process.env),
             }
             const result_html = `<pre>${JSON.stringify(result, null, 2)}</pre>`;
