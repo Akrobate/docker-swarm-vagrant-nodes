@@ -1,14 +1,14 @@
 
 
 ---
-- name: Playbook
+- name: Mount gluster Playbook
   hosts: glusterfs
   become: yes
 
   vars_prompt:
 
   - name: volume_name
-    prompt: Volume to mount? example volume_test
+    prompt: Glusterfs volume name to mount? example volume_test
     private: no
 
   - name: gluster_mount_dir
