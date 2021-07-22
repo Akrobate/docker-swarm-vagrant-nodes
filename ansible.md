@@ -7,6 +7,13 @@ sudo apt update
 sudo apt install ansible
 ```
 
+## Install ansible plugins for project
+
+```bash
+ansible-galaxy collection install gluster.gluster
+sudo apt install ansible
+```
+
 
 ## Example host file with configurations
 
