@@ -1,0 +1,31 @@
+---
+- name: Mount gluster Playbook
+  hosts: master
+  become: yes
+
+  vars_prompt:
+
+  - name: volume_name
+    prompt: Glusterfs volume name to mount? example volume_test
+    private: no
+
+  tasks:
+
+  - name: create gluster volume
+    gluster_volume:
+      state: present
+      name: {{ volume_name }}
+      bricks: /gluster/volume1
+      rebalance: yes
+      cluster:
+        - {{ hostvars[groups['worker'][0]].ansible_host }}
+        - {{ hostvars[groups['worker'][1]].ansible_host }}
+        - {{ hostvars[groups['worker'][2]].ansible_host }}
+      replicas: 3
+      force: true
+    run_once: true
+
+  - name: start gluster volume
+    gluster_volume:
+      state: started
+      name: {{ volume_name }}
