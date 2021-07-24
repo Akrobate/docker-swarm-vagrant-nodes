@@ -18,9 +18,6 @@ docker service ps service_name -f "desired-state=running"
 # j3l7vvs2bioe   test-app_probe-app-2.1   192.168.1.200:5000/probe-app:latest   worker2   Running         Running 10 minutes ago
 # ntmc03fmgrgj   test-app_probe-app-2.2   192.168.1.200:5000/probe-app:latest   worker1   Running         Running 10 minutes ago
 # aw3xgo62fz80   test-app_probe-app-2.3   192.168.1.200:5000/probe-app:latest   worker3   Running         Running 10 minutes ago
-
-
-
 ```
 
 ## Explore swarm stack
@@ -39,11 +36,34 @@ docker stack services stack_name_to_preview
 docker node update --label-add VolumeNode=true node_name
 ```
 
-node.labels.VolumeNode == true
-
-
 ```bash
 docker node update --label-rm VolumeNode node_name
+```
+
+In compose you can add constraint 
+
+```
+node.labels.VolumeNode == true
+```
+
+compose extract
+```yaml
+# exmaple
+services:
+    probe-app-2:
+        image: 192.168.1.200:5000/probe-app
+        build: .
+        ports:
+            - 3001:3000
+        environment:
+            PROBE_APP: probe-app-2
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints:
+                    - "node.role==worker"
+                    - "node.labels.Volume == true"
 ```
 
 
