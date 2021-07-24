@@ -32,7 +32,7 @@ cd vagrant-test-project
 vagrant init ubuntu/focal64
 ```
 
-Manually create a Vagrantfile
+### Manually create a Vagrantfile
 
 ```ruby
 Vagrant.configure("2") do |config|
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-Advanced Vagrant file
+### Advanced Vagrant file
 
 ```ruby
 # -*- mode: ruby -*-
@@ -57,6 +57,39 @@ Vagrant.configure("2") do |config|
   config.vm.provision "file", source: "./privates/rsa_key.pub", destination: "$HOME/.ssh/"
   config.vm.provision :shell, path: "provisioning.sh"
 
+end
+```
+
+### Advanced multimachine Vagrant file
+
+```ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "master" do |master|
+    master.vm.box = "ubuntu/focal64"
+    master.vm.hostname = "master"
+    master.vm.network "public_network", ip: "192.168.1.200"
+    master.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    end
+    master.vm.provision "file", source: "./privates/rsa_key.pub", destination: "$HOME/.ssh/"
+    master.vm.provision "shell",
+      inline: "cat /home/vagrant/.ssh/rsa_key.pub >> /home/vagrant/.ssh/authorized_keys"
+  end
+
+  config.vm.define "worker" do |worker|
+    worker.vm.box = "ubuntu/focal64"
+    worker.vm.hostname = "worker"
+    worker.vm.network "public_network", ip: "192.168.1.200"
+    worker.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    end
+    worker.vm.provision "file", source: "./privates/rsa_key.pub", destination: "$HOME/.ssh/"
+    worker.vm.provision "shell",
+      inline: "cat /home/vagrant/.ssh/rsa_key.pub >> /home/vagrant/.ssh/authorized_keys"
+  end
 end
 ```
 
