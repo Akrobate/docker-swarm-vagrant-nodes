@@ -46,6 +46,7 @@ sudo gluster volume start test_shared_volume
 sudo mount.glusterfs localhost:/test_shared_volume /mnt/data
 ```
 
+Configure mount volume on start of the server
 ```bash
 sudo echo 'localhost:/test_shared_volume /mnt/data glusterfs defaults,_netdev,backupvolfile-server=localhost 0 0' >> /etc/fstab
 ```
