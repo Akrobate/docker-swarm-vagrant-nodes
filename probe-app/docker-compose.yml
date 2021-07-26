@@ -7,6 +7,8 @@ services:
         build: .
         ports:
             - 3000:3000
+        volumes:
+            - /mnt/data:/probe-app/data
         environment:
             PROBE_APP: probe-app-1
         deploy:
@@ -22,6 +24,8 @@ services:
         build: .
         ports:
             - 3001:3000
+        volumes:
+            - /mnt/data:/probe-app/data
         environment:
             PROBE_APP: probe-app-2
         deploy:
@@ -37,6 +41,8 @@ services:
         build: .
         ports:
             - 3002:3000
+        volumes:
+            - /mnt/data:/probe-app/data
         environment:
             PROBE_APP: probe-app-3
         deploy:
